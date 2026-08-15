@@ -1,0 +1,61 @@
+name: Xuất bản Cổng cập nhật tri thức BĐS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "github-pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lấy mã nguồn
+        uses: actions/checkout@v4
+
+      - name: Kiểm tra cấu hình backend
+        env:
+          BACKEND_URL: ${{ secrets.BDS_PORTAL_BACKEND_URL }}
+        run: |
+          # Nhận URL Apps Script từ repository secret; thiếu thì dừng với lỗi dễ hiểu.
+          if [ -z "$BACKEND_URL" ]; then
+            echo "Thiếu repository secret BDS_PORTAL_BACKEND_URL."
+            exit 1
+          fi
+          case "$BACKEND_URL" in
+            https://script.google.com/macros/s/*/exec) ;;
+            *) echo "BDS_PORTAL_BACKEND_URL không phải URL Apps Script /exec hợp lệ."; exit 1 ;;
+          esac
+
+      - name: Tạo cấu hình chỉ dùng lúc xuất bản
+        env:
+          BACKEND_URL: ${{ secrets.BDS_PORTAL_BACKEND_URL }}
+        run: |
+          # Tạo file JavaScript cho trình duyệt; source Git không chứa URL deployment thật.
+          printf "window.BDS_PORTAL_BACKEND_URL = '%s';\n" "$BACKEND_URL" > "site/config.js"
+
+      - name: Cấu hình GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Đóng gói đúng thư mục cổng
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "site"
+
+      - name: Xuất bản
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cổng cập nhật tri thức dùng chung của team BĐS">
+  <title>Cổng cập nhật tri thức BĐS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">Một nơi dùng chung cho cả team</p>
+      <h1>Cổng cập nhật tri thức BĐS</h1>
+      <p>Gửi nội dung tại đây. Hệ thống ghi vào hàng chờ chung để Codex máy Đức tổng hợp và trình duyệt lúc 17:45.</p>
+    </header>
+
+    <aside class="notice" role="note">
+      <strong>Không dán dữ liệu nhạy cảm.</strong>
+      <span>Chỉ ghi loại thông tin, mã nguồn và nơi lưu; không ghi số điện thoại, CCCD, tài khoản, ảnh sổ, hợp đồng hoặc dữ liệu khách hàng.</span>
+    </aside>
+
+    <form id="portal-form" class="card" method="post" target="portal-response" novalidate>
+      <input type="hidden" name="requestType" id="request-type" value="Chốt ngày">
+      <input type="hidden" name="requestId" id="request-id">
+
+      <section>
+        <h2>1. Xác nhận thành viên</h2>
+        <p class="help">Mã truy cập do Đức cấp riêng; cổng không lưu mã này trên GitHub.</p>
+        <div class="grid">
+          <div class="field">
+            <label for="member-id">Mã thành viên *</label>
+            <input id="member-id" name="memberId" maxlength="60" autocomplete="username" required placeholder="Ví dụ: DUC, LINH, DAT">
+          </div>
+          <div class="field">
+            <label for="access-code">Mã truy cập *</label>
+            <input id="access-code" name="accessCode" type="password" minlength="8" maxlength="100" autocomplete="current-password" required>
+          </div>
+        </div>
+      </section>
+
+      <section class="step">
+        <h2>2. Chọn việc cần cập nhật</h2>
+        <p class="help">Mỗi nội dung mới gửi một lượt riêng. Cuối ngày chốt heartbeat một lần.</p>
+        <div class="type-grid" id="type-grid">
+          <button type="button" class="type-button active" data-type="Chốt ngày">
+            <strong>Chốt ngày</strong><span>Có phát sinh, Không phát sinh hoặc Nghỉ phép</span>
+          </button>
+          <button type="button" class="type-button" data-type="Báo cập nhật">
+            <strong>Báo cập nhật</strong><span>Docs, Sheets hoặc My Maps có nội dung mới</span>
+          </button>
+          <button type="button" class="type-button" data-type="Yêu cầu bổ sung">
+            <strong>Yêu cầu bổ sung</strong><span>Project đang thiếu hoặc đã nhập chưa đủ</span>
+          </button>
+          <button type="button" class="type-button" data-type="Đề xuất skill">
+            <strong>Đề xuất skill</strong><span>Công cụ cá nhân muốn đưa vào dùng chung</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="panel active" data-panel="Chốt ngày">
+        <h2>Chốt heartbeat trong ngày</h2>
+        <p class="help">Nếu đã gửi cập nhật ở cổng hôm nay, chỉ cần chọn “Có phát sinh”.</p>
+        <div class="grid">
+          <div class="field">
+            <label for="day-status">Trạng thái ngày *</label>
+            <select id="day-status" name="dayStatus" data-required="true">
+              <option value="">Chọn trạng thái</option>
+              <option>Có phát sinh</option>
+              <option>Không phát sinh</option>
+              <option>Nghỉ phép</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="daily-task">Đầu việc chính</label>
+            <input id="daily-task" name="task" maxlength="500">
+          </div>
+        </div>
+        <div id="daily-change" class="conditional hidden">
+          <div class="grid">
+            <div class="field">
+              <label for="daily-source">Mã nguồn</label>
+              <input id="daily-source" name="sourceId" maxlength="100">
+            </div>
+            <div class="field">
+              <label for="daily-scope">Tab/heading/range/layer</label>
+              <input id="daily-scope" name="scope" maxlength="500">
+            </div>
+            <div class="field full">
+              <label for="daily-summary">Nội dung thay đổi</label>
+              <textarea id="daily-summary" name="changeSummary" maxlength="3000"></textarea>
+            </div>
+            <div class="field">
+              <label for="daily-result">Kết quả</label>
+              <textarea id="daily-result" name="result" maxlength="1000"></textarea>
+            </div>
+            <div class="field">
+              <label for="daily-codex">Việc cần Codex làm</label>
+              <textarea id="daily-codex" name="codexRequest" maxlength="1000"></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" data-panel="Báo cập nhật">
+        <h2>Báo một nội dung mới hoặc thay đổi</h2>
+        <p class="help">Nguồn có sẵn: nhập mã nguồn. Nguồn mới: dán link và điền thông tin đăng ký.</p>
+        <div class="grid">
+          <div class="field">
+            <label for="update-source">Mã nguồn có sẵn</label>
+            <input id="update-source" name="sourceId" maxlength="100">
+          </div>
+          <div class="field">
+            <label for="source-url">Link Google nguồn mới</label>
+            <input id="source-url" name="sourceUrl" maxlength="1000" inputmode="url" placeholder="Docs, Sheets hoặc My Maps">
+          </div>
+          <div class="field">
+            <label for="source-type">Loại nguồn mới</label>
+            <select id="source-type" name="sourceType">
+              <option value="">Chọn loại nguồn</option>
+              <option>Google Docs</option>
+              <option>Google Sheets</option>
+              <option>Google My Maps</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="source-name">Tên nguồn mới</label>
+            <input id="source-name" name="sourceName" maxlength="300">
+          </div>
+          <div class="field">
+            <label for="topic">Chủ đề/địa phương/deal</label>
+            <input id="topic" name="topic" maxlength="300">
+          </div>
+          <div class="field">
+            <label for="sensitivity">Mức nhạy cảm</label>
+            <select id="sensitivity" name="sensitivity">
+              <option>Nội bộ</option><option>Hạn chế</option><option>Nhạy cảm</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="update-scope">Tab/heading/range/layer đã sửa *</label>
+            <input id="update-scope" name="scope" maxlength="500" data-required="true" placeholder="Docs: Tab > Heading | Sheets: Tab!A2:H50 | Maps: tên layer">
+          </div>
+          <div class="field full">
+            <label for="update-summary">Nội dung thay đổi *</label>
+            <textarea id="update-summary" name="changeSummary" maxlength="3000" data-required="true" placeholder="Chỉ tóm tắt phần đổi; không dán toàn bộ tài liệu."></textarea>
+          </div>
+          <div class="field">
+            <label for="update-result">Kết quả</label>
+            <textarea id="update-result" name="result" maxlength="1000"></textarea>
+          </div>
+          <div class="field">
+            <label for="update-codex">Việc cần Codex làm</label>
+            <textarea id="update-codex" name="codexRequest" maxlength="1000"></textarea>
+          </div>
+          <label class="check full"><input type="checkbox" name="kmlReady" value="true"> Đã xuất KML/KMZ mới nếu đây là Google My Maps</label>
+        </div>
+      </section>
+
+      <section class="panel" data-panel="Yêu cầu bổ sung">
+        <h2>Yêu cầu bổ sung tri thức</h2>
+        <div class="grid">
+          <div class="field full">
+            <label for="gap-title">Tên nội dung còn thiếu *</label>
+            <input id="gap-title" name="title" maxlength="300" data-required="true">
+          </div>
+          <div class="field">
+            <label for="gap-source">Mã nguồn liên quan</label>
+            <input id="gap-source" name="sourceId" maxlength="100">
+          </div>
+          <div class="field">
+            <label for="gap-scope">Phạm vi liên quan</label>
+            <input id="gap-scope" name="scope" maxlength="500">
+          </div>
+          <div class="field full">
+            <label for="gap-summary">Mô tả cần bổ sung *</label>
+            <textarea id="gap-summary" name="changeSummary" maxlength="3000" data-required="true"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" data-panel="Đề xuất skill">
+        <h2>Đề xuất skill dùng chung</h2>
+        <p class="help">Skill vẫn ở máy cá nhân cho tới khi Đức duyệt, kiểm quyền riêng tư, dependency và test.</p>
+        <div class="grid">
+          <div class="field full">
+            <label for="skill-name">Tên skill *</label>
+            <input id="skill-name" name="skillName" maxlength="200" data-required="true">
+          </div>
+          <div class="field full">
+            <label for="skill-goal">Mục tiêu và lúc nên dùng *</label>
+            <textarea id="skill-goal" name="skillGoal" maxlength="1500" data-required="true"></textarea>
+          </div>
+          <div class="field full">
+            <label for="skill-io">Đầu vào và kết quả đầu ra *</label>
+            <textarea id="skill-io" name="skillInputOutput" maxlength="1500" data-required="true"></textarea>
+          </div>
+          <div class="field full">
+            <label for="skill-deps">Phần bổ trợ hoặc quyền cần có</label>
+            <textarea id="skill-deps" name="skillDependencies" maxlength="1000"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <div class="checks">
+        <label class="check"><input type="checkbox" name="urgent" value="true"> Cần xử lý khẩn</label>
+        <label class="check"><input type="checkbox" name="private" value="true"> Có yếu tố riêng tư</label>
+      </div>
+
+      <div class="actions">
+        <button type="submit" id="submit-button">Gửi vào hàng chờ chung</button>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </div>
+    </form>
+
+    <iframe name="portal-response" id="portal-response" title="Phản hồi từ hệ thống" hidden></iframe>
+    <p class="footer">Cổng chỉ tiếp nhận. Project/Git chỉ được sửa sau khi Đức duyệt đề xuất.</p>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
