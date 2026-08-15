@@ -1,7 +1,6 @@
 'use strict';
 
 const form = document.getElementById('portal-form');
-const iframe = document.getElementById('portal-response');
 const requestType = document.getElementById('request-type');
 const requestId = document.getElementById('request-id');
 const submitButton = document.getElementById('submit-button');
@@ -85,11 +84,23 @@ form.addEventListener('submit', event => {
   }, 30000);
 });
 
-// Chỉ nhận phản hồi từ đúng iframe vừa submit và đúng requestId hiện tại.
+// Apps Script chạy nội dung trong một iframe googleusercontent lồng bên trong iframe đích.
+// Vì vậy kiểm origin Google sandbox và bắt buộc requestId khớp thay cho so sánh window trực tiếp.
+function laNguonAppsScript(origin) {
+  try {
+    const url = new URL(origin);
+    return url.protocol === 'https:' &&
+      (url.hostname === 'script.googleusercontent.com' ||
+        url.hostname.endsWith('-script.googleusercontent.com'));
+  } catch (error) {
+    return false;
+  }
+}
+
 window.addEventListener('message', event => {
-  if (event.source !== iframe.contentWindow) return;
+  if (!laNguonAppsScript(event.origin)) return;
   const data = event.data || {};
-  if (data.requestId && data.requestId !== requestId.value) return;
+  if (!data.requestId || data.requestId !== requestId.value) return;
   ketThucGui();
   if (!data.ok) {
     hienTrangThai(data.message || 'Không gửi được cập nhật.', 'error');
