@@ -9,7 +9,35 @@ const panels = Array.from(document.querySelectorAll('.panel'));
 const typeButtons = Array.from(document.querySelectorAll('.type-button'));
 const dayStatus = document.getElementById('day-status');
 const dailyChange = document.getElementById('daily-change');
+const dailyStatus = document.getElementById('daily-status');
 let timeoutId = null;
+
+// Cổng tự hiển thị việc cần làm theo giờ Việt Nam; không tạo tin nhắn hẹn giờ trong ChatGPT.
+function capNhatNhipHangNgay() {
+  if (!dailyStatus) return;
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Ho_Chi_Minh',
+    weekday: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23'
+  }).formatToParts(new Date());
+  const values = Object.fromEntries(parts.map(part => [part.type, part.value]));
+  const weekend = values.weekday === 'Sat' || values.weekday === 'Sun';
+  const minuteOfDay = Number(values.hour) * 60 + Number(values.minute);
+
+  if (weekend) {
+    dailyStatus.textContent = 'Hôm nay là cuối tuần. Chỉ gửi nếu có nội dung cần xử lý.';
+  } else if (minuteOfDay < 16 * 60 + 45) {
+    dailyStatus.textContent = 'Trong ngày: báo từng nội dung mới ngay khi phát sinh. 16:45 hệ thống quét Drive.';
+  } else if (minuteOfDay < 17 * 60 + 15) {
+    dailyStatus.textContent = 'Drive đã đến lượt quét. Hãy kiểm tra các cập nhật và chuẩn bị chốt ngày.';
+  } else {
+    dailyStatus.textContent = 'Đã đến giờ chốt ngày: chọn Có phát sinh, Không phát sinh hoặc Nghỉ phép ở bên dưới.';
+    dailyStatus.classList.add('action-needed');
+  }
+}
+capNhatNhipHangNgay();
 
 // Backend URL được GitHub Actions tạo từ repository secret, không nằm trong source Git.
 const backendUrl = String(window.BDS_PORTAL_BACKEND_URL || '').trim();

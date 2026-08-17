@@ -21,6 +21,8 @@ body { margin: 0; background: var(--background); color: var(--text); font-family
 h1 { margin: 0; font-size: clamp(25px, 4vw, 36px); line-height: 1.18; }
 .hero p:last-child { max-width: 680px; margin: 12px 0 0; color: #e6f0f7; }
 .notice { display: flex; gap: 9px; margin: 16px 0; padding: 13px 15px; border: 1px solid #ead68a; border-radius: 12px; background: #fff8c5; color: #5f4b00; font-size: 14px; }
+.daily-status { margin: 16px 0; padding: 13px 15px; border: 1px solid #b8d8ee; border-radius: 12px; background: var(--blue-soft); color: var(--navy); font-size: 14px; font-weight: 700; }
+.daily-status.action-needed { border-color: #e7b0b0; background: var(--red-soft); color: #8f1f1f; }
 .card { padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: 0 8px 24px rgba(16, 42, 67, .06); }
 h2 { margin: 0 0 4px; color: var(--navy); font-size: 18px; }
 .help { margin: 0 0 16px; color: var(--muted); font-size: 14px; }

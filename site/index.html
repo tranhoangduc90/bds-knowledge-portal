@@ -12,8 +12,12 @@
     <header class="hero">
       <p class="eyebrow">Một nơi dùng chung cho cả team</p>
       <h1>Cổng cập nhật tri thức BĐS</h1>
-      <p>Gửi nội dung tại đây. Hệ thống ghi vào hàng chờ chung để Codex máy Đức tổng hợp và trình duyệt lúc 17:45.</p>
+      <p>Đây là nơi cố định để cả team báo cập nhật và chốt ngày. Hệ thống lưu vào hàng chờ chung; không cần dùng tin nhắn hẹn giờ trong ChatGPT.</p>
     </header>
+
+    <aside id="daily-status" class="daily-status" role="status" aria-live="polite">
+      Đang kiểm tra nhịp làm việc hôm nay...
+    </aside>
 
     <aside class="notice" role="note">
       <strong>Không dán dữ liệu nhạy cảm.</strong>
@@ -41,7 +45,7 @@
 
       <section class="step">
         <h2>2. Chọn việc cần cập nhật</h2>
-        <p class="help">Mỗi nội dung mới gửi một lượt riêng. Cuối ngày chốt heartbeat một lần.</p>
+        <p class="help">Mỗi nội dung mới gửi một lượt riêng. Cuối ngày chốt trạng thái một lần ngay tại cổng này.</p>
         <div class="type-grid" id="type-grid">
           <button type="button" class="type-button active" data-type="Chốt ngày">
             <strong>Chốt ngày</strong><span>Có phát sinh, Không phát sinh hoặc Nghỉ phép</span>
@@ -59,7 +63,7 @@
       </section>
 
       <section class="panel active" data-panel="Chốt ngày">
-        <h2>Chốt heartbeat trong ngày</h2>
+        <h2>Chốt ngày làm việc</h2>
         <p class="help">Nếu đã gửi cập nhật ở cổng hôm nay, chỉ cần chọn “Có phát sinh”.</p>
         <div class="grid">
           <div class="field">
@@ -217,7 +221,7 @@
     <p class="footer">Cổng chỉ tiếp nhận. Project/Git chỉ được sửa sau khi Đức duyệt đề xuất.</p>
   </main>
 
-  <script src="config.js?v=20260816-2"></script>
-  <script src="app.js?v=20260816-2"></script>
+  <script src="config.js?v=20260818-1"></script>
+  <script src="app.js?v=20260818-1"></script>
 </body>
 </html>
