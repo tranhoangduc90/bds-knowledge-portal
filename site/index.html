@@ -59,6 +59,9 @@
           <button type="button" class="type-button" data-type="Đề xuất skill">
             <strong>Đề xuất skill</strong><span>Công cụ cá nhân muốn đưa vào dùng chung</span>
           </button>
+          <button type="button" class="type-button" data-type="Hướng dẫn Linh">
+            <strong>Hướng dẫn Linh</strong><span>Gửi bản anh Long đã xác nhận để Đức duyệt đồng bộ</span>
+          </button>
         </div>
       </section>
 
@@ -203,6 +206,27 @@
             <label for="skill-deps">Phần bổ trợ hoặc quyền cần có</label>
             <textarea id="skill-deps" name="skillDependencies" maxlength="1000"></textarea>
           </div>
+        </div>
+      </section>
+
+      <section class="panel" data-panel="Hướng dẫn Linh">
+        <h2>Gửi cách hướng dẫn đã được anh Long xác nhận</h2>
+        <p class="help">Chỉ dán bản trợ lý đã chắt lọc. Không dán lời kể nguyên văn, nhận xét tính cách hoặc thông tin riêng tư.</p>
+        <div class="grid">
+          <div class="field full">
+            <label for="guidance-card">Bản hướng dẫn đã chắt lọc *</label>
+            <textarea id="guidance-card" name="guidanceCard" maxlength="6000" data-required="true" placeholder="Tình huống kích hoạt: ...&#10;Điều đang nhận thấy: ...&#10;Điều muốn Linh làm khác: ...&#10;Khi nào trợ lý nên nhắc: ...&#10;Câu hỏi trợ lý dùng với Linh: ...&#10;Trường hợp không nên áp dụng: ...&#10;Dấu hiệu tiến bộ: ...&#10;Mức ưu tiên: Làm ngay"></textarea>
+          </div>
+          <div class="field">
+            <label for="guidance-replaces">Mã hướng dẫn cũ bị thay thế</label>
+            <input id="guidance-replaces" name="guidanceReplacesId" maxlength="100" placeholder="Để trống nếu là hướng dẫn mới">
+          </div>
+          <div class="field">
+            <label for="confirmation-reference">Dấu vết anh Long xác nhận</label>
+            <input id="confirmation-reference" name="confirmationReference" maxlength="300" placeholder="Đức điền ngày/kênh nếu gửi thay anh Long">
+          </div>
+          <label class="check full"><input type="checkbox" name="longConfirmed" value="true" data-required="true"> Anh Long đã đọc và xác nhận rõ nội dung này</label>
+          <label class="check full"><input type="checkbox" name="safeToShare" value="true" data-required="true"> Bản này đã bỏ lời gốc, nhận xét nhạy cảm và dữ liệu riêng tư</label>
         </div>
       </section>
 

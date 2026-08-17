@@ -134,7 +134,7 @@ window.addEventListener('message', event => {
     hienTrangThai(data.message || 'Không gửi được cập nhật.', 'error');
     return;
   }
-  const confirmation = data.queueId || data.logId || data.requestId;
+  const confirmation = data.guidanceId || data.queueId || data.logId || data.requestId;
   hienTrangThai((data.message || 'Đã tiếp nhận.') + (confirmation ? ' Mã xác nhận: ' + confirmation : ''), 'success');
   requestId.value = taoRequestId();
 });
