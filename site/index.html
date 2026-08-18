@@ -29,17 +29,18 @@
       <input type="hidden" name="requestId" id="request-id">
 
       <section>
-        <h2>1. Xác nhận thành viên</h2>
-        <p class="help">Mã truy cập do Đức cấp riêng; cổng không lưu mã này trên GitHub.</p>
-        <div class="grid">
-          <div class="field">
-            <label for="member-id">Mã thành viên *</label>
-            <input id="member-id" name="memberId" maxlength="60" autocomplete="username" required placeholder="Ví dụ: DUC, LINH, DAT">
-          </div>
-          <div class="field">
-            <label for="access-code">Mã truy cập *</label>
-            <input id="access-code" name="accessCode" type="password" minlength="8" maxlength="100" autocomplete="current-password" required>
-          </div>
+        <h2>1. Chọn tên của bạn</h2>
+        <p class="help">Không cần tài khoản, mã thành viên hoặc mã truy cập.</p>
+        <div class="field">
+          <label for="member-id">Thành viên *</label>
+          <select id="member-id" name="memberId" required>
+            <option value="">Chọn thành viên</option>
+            <option value="DUC">Đức</option>
+            <option value="LONG">Anh Long</option>
+            <option value="LINH">Anh Linh</option>
+            <option value="DAT">Đạt</option>
+            <option value="HA">Hà</option>
+          </select>
         </div>
       </section>
 
@@ -245,7 +246,7 @@
     <p class="footer">Cổng chỉ tiếp nhận. Project/Git chỉ được sửa sau khi Đức duyệt đề xuất.</p>
   </main>
 
-  <script src="config.js?v=20260818-1"></script>
-  <script src="app.js?v=20260818-1"></script>
+  <script src="config.js?v=20260818-2"></script>
+  <script src="app.js?v=20260818-2"></script>
 </body>
 </html>
